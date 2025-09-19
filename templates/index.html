@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PetShop - Магазин для животных</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🐾 PetShop - Магазин для животных</h1>
+            <div class="auth-section">
+                <div id="auth-buttons">
+                    <button onclick="showRegister()">Регистрация</button>
+                    <button onclick="showLogin()">Вход</button>
+                </div>
+                <div id="user-info" style="display: none;">
+                    <span id="username"></span>
+                    <button onclick="logout()">Выйти</button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Формы авторизации -->
+        <div id="auth-forms" style="display: none;">
+            <div class="form-container">
+                <h3 id="form-title"></h3>
+                <form id="auth-form">
+                    <input type="text" id="username-input" placeholder="Имя пользователя" required>
+                    <input type="email" id="email-input" placeholder="Email" style="display: none;">
+                    <input type="password" id="password-input" placeholder="Пароль" required>
+                    <button type="submit">Отправить</button>
+                    <button type="button" onclick="hideAuthForms()">Отмена</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Товары -->
+        <section class="products">
+            <h2>Наши товары</h2>
+            <div class="filters">
+                <button onclick="loadProducts()">Все товары</button>
+                <button onclick="loadProducts('food')">Корм</button>
+                <button onclick="loadProducts('toys')">Игрушки</button>
+                <button onclick="loadProducts('aquarium')">Аквариумы</button>
+            </div>
+            <div id="products-list" class="products-grid"></div>
+        </section>
+
+        <!-- Чат поддержки -->
+        <section class="chat-section">
+            <h2>Чат поддержки</h2>
+            <div class="chat-container">
+                <div id="chat-messages"></div>
+                <div class="chat-input">
+                    <input type="text" id="message-input" placeholder="Введите сообщение...">
+                    <button onclick="sendMessage()">Отправить</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
