@@ -5,10 +5,10 @@ from sqlalchemy.orm import Session
 from typing import List
 import json
 
-# Сначала импорты, потом создание app
+
 app = FastAPI(title="PetShop")
 
-# Затем CORSMiddleware (если нужно)
+
 from fastapi.middleware.cors import CORSMiddleware
 app.add_middleware(
     CORSMiddleware,
