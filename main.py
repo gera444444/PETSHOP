@@ -70,7 +70,7 @@ class ConnectionManager:
     async def connect(self, websocket: WebSocket):
         await websocket.accept()
         self.active_connections.append(websocket)
-        print(f"✅ Новое WebSocket подключение. Всего: {len(self.active_connections)}")
+        print(f"Новое WebSocket подключение. Всего: {len(self.active_connections)}")
         
         # Отправляем историю сообщений новому пользователю
         if db.messages:
@@ -89,7 +89,7 @@ class ConnectionManager:
     def disconnect(self, websocket: WebSocket):
         if websocket in self.active_connections:
             self.active_connections.remove(websocket)
-        print(f"❌ WebSocket отключен. Осталось: {len(self.active_connections)}")
+        print(f"WebSocket отключен. Осталось: {len(self.active_connections)}")
     
     async def broadcast(self, message: str):
         if not self.active_connections:
@@ -109,7 +109,7 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
-# Роуты
+# главная страница
 @app.get("/")
 async def read_root():
     try:
@@ -117,7 +117,7 @@ async def read_root():
             return HTMLResponse(content=f.read())
     except FileNotFoundError:
         return HTMLResponse("<h1>PetShop - Магазин для животных</h1><p>Файл index.html не найден</p>")
-
+#поиск товаров по категориям
 @app.get("/products")
 async def get_products(category: str = None):
     if category and category != "all":
@@ -170,7 +170,7 @@ async def login(login_data: dict):
 # WebSocket endpoint
 @app.websocket("/ws/chat")
 async def websocket_endpoint(websocket: WebSocket):
-    print("🔄 Подключение к WebSocket...")
+    print("Подключение к WebSocket...")
     
     await manager.connect(websocket)
     
@@ -227,9 +227,9 @@ async def websocket_endpoint(websocket: WebSocket):
                     break
                     
     except WebSocketDisconnect:
-        print("🔌 WebSocket отключен клиентом")
+        print(" WebSocket отключен клиентом")
     except Exception as e:
-        print(f"❌ Ошибка WebSocket: {e}")
+        print(f" Ошибка WebSocket: {e}")
     finally:
         manager.disconnect(websocket)
 
@@ -254,7 +254,7 @@ async def test_websocket():
 
 if __name__ == "__main__":
     import uvicorn
-    print("🚀 Запуск PetShop сервера...")
-    print("📍 WebSocket доступен по: ws://127.0.0.1:8000/ws/chat")
-    print("🌐 Веб-интерфейс: http://127.0.0.1:8000")
+    print(" Запуск PetShop сервера...")
+    print(" WebSocket доступен по: ws://127.0.0.1:8000/ws/chat")
+    print(" Веб-интерфейс: http://127.0.0.1:8000")
     uvicorn.run(app, host="0.0.0.0", port=8000, ws_ping_interval=20, ws_ping_timeout=20)
