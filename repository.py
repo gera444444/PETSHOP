@@ -33,19 +33,19 @@ class UserRepository:
 class ProductRepository:
     def __init__(self, db: Session):
         self.db = db
-    #список продуктов с лимитом
+    #список продуктов с лимитом(пагинация)
     def get_products(self, skip: int = 0, limit: int = 100):
         return self.db.query(Product).offset(skip).limit(limit).all()
-    
+    #поиск по id
     def get_product_by_id(self, product_id: int):
         return self.db.query(Product).filter(Product.id == product_id).first()
-    
+    #продукты по категории поиск
     def get_products_by_category(self, category: str):
         return self.db.query(Product).filter(Product.category == category).all()
     
     def create_product(self, product_data):
-        db_product = Product(**product_data.dict())
+        db_product = Product(**product_data.dict())#распаковка для создания модели 
         self.db.add(db_product)
-        self.db.commit()
+        self.db.commit() #сохранение изменений и обновление
         self.db.refresh(db_product)
         return db_product
