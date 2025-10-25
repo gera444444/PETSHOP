@@ -1,6 +1,4 @@
 from pydantic import BaseModel
-from typing import List, Optional
-from datetime import datetime
 
 class UserBase(BaseModel):
     username: str
@@ -11,7 +9,6 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
-    created_at: datetime
     
     class Config:
         from_attributes = True
@@ -39,8 +36,3 @@ class LoginRequest(BaseModel):
 class ChatMessage(BaseModel):
     username: str
     message: str
-    type: str = "message"
-    timestamp: datetime
-
-    class Config:
-        from_attributes = True
