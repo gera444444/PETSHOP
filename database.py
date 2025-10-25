@@ -11,11 +11,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-# Импортируем модели для создания таблиц
-from models import User, Product, ChatMessage
-
-def create_tables():
-    Base.metadata.create_all(bind=engine)
 
 def get_db():
     db = SessionLocal()
@@ -25,4 +20,4 @@ def get_db():
         db.close()
 
 # Создаем таблицы при импорте
-create_tables()
+Base.metadata.create_all(bind=engine)
